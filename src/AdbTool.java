@@ -245,6 +245,7 @@ public class AdbTool {
             e.printStackTrace();
         }
         return "";
+
     }
 
     private static boolean isAdbInSetupPath() {
