@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="AdbTool:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/AdbTool_jar</output-path>
+    <root id="archive" name="AdbTool.jar">
+      <element id="module-output" name="FuncTest" />
+    </root>
+  </artifact>
+</component>
