@@ -27,6 +27,7 @@ public class AdbTool {
     private JTextArea a9拔除USB連結線完成設定TextArea;
     private JButton btnDisconnectDevice;
     private JButton btnKillAdbServer;
+    private JButton btnPingIP;
 
     public AdbTool() {
         btnGetAdbPath.addActionListener(new ActionListener() {
@@ -78,7 +79,7 @@ public class AdbTool {
                 String path = getDeviceSn(txtAdbPath.getText());
                 if (!path.equals("")) {
                     txtDeviceSn.setText(path);
-                    JOptionPane.showMessageDialog(pnlRoot, path +"\n查完了");
+                    JOptionPane.showMessageDialog(pnlRoot, path + "\n查完了");
 
                 } else
                     JOptionPane.showMessageDialog(pnlRoot, "查不到，檢查USB連線後再試試");
@@ -90,11 +91,11 @@ public class AdbTool {
             public void actionPerformed(ActionEvent e) {
                 String ip = getDeviceIP(txtAdbPath.getText(), txtDeviceSn.getText());
 
-                if(!ip.equals("")){
+                if (!ip.equals("")) {
                     txtDeviceIP.setText(ip);
-                    JOptionPane.showMessageDialog(pnlRoot, ip+"\n查完了");
+                    JOptionPane.showMessageDialog(pnlRoot, ip + "\n查完了");
 
-                }else
+                } else
                     JOptionPane.showMessageDialog(pnlRoot, "查不到IP，是不是沒有WIFI?");
 
             }
@@ -129,6 +130,37 @@ public class AdbTool {
                         killAdbServer(txtAdbPath.getText()));
             }
         });
+        btnPingIP.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(pnlRoot,
+                        pingIP(txtDeviceIP.getText()));
+            }
+        });
+    }
+
+    private static String pingIP(String ip) {
+
+        Process p = null;
+        byte[] data;
+        try {
+            p = Runtime.getRuntime().exec("ping " + ip);
+            p.waitFor();
+            data = new byte[2048];
+            p.getInputStream().read(data);
+            String result = new String(data, "Windows-950").trim();
+            if ((result.contains("要求等候逾時")) && (!result.contains("回覆自")))
+                return "Ping不到耶，檢查一下網路吧!!";
+            else if ((result.contains("要求等候逾時")) && (result.contains("回覆自")))
+                return "網路不穩耶，檢查一下網路吧!!";
+            else if ((!result.contains("要求等候逾時")) && (result.contains("回覆自")))
+                return result + "\nPing到了!";
+
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "";
+
     }
 
     private static String setDeviceListenPort(String adbPath, String devSn, int port) {
@@ -161,7 +193,7 @@ public class AdbTool {
             data = new byte[2048];
             p.getInputStream().read(data);
             String result = new String(data, "ASCII");
-            result=result.trim();
+            result = result.trim();
             if (result.equals("")) return "";
 
             result = result.split("\r\n")[1].split(" brd ")[0].split("/")[0].replace("inet", "").trim();
