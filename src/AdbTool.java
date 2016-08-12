@@ -374,5 +374,4 @@ public class AdbTool {
         return "";
     }
 
-
 }
