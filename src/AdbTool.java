@@ -160,7 +160,6 @@ public class AdbTool {
             e.printStackTrace();
         }
         return "";
-
     }
 
     private static String setDeviceListenPort(String adbPath, String devSn, int port) {
