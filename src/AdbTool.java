@@ -29,6 +29,7 @@ public class AdbTool {
     private JButton btnKillAdbServer;
     private JButton btnPingIP;
 
+
     public AdbTool() {
         btnGetAdbPath.addActionListener(new ActionListener() {
             @Override
