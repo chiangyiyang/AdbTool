@@ -88,6 +88,7 @@ public class AdbTool {
 
             }
         });
+
         btnGetDeviceIP.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -102,6 +103,7 @@ public class AdbTool {
 
             }
         });
+
         btnSetListenPort.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
