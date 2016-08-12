@@ -61,6 +61,7 @@ public class AdbTool {
                 }
             }
         });
+
         btnSetAdbEnv.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -73,6 +74,7 @@ public class AdbTool {
                 }
             }
         });
+
         btnGetDeviceSn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
